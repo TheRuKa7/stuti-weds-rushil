@@ -1,0 +1,302 @@
+@import "tailwindcss";
+
+/*
+  Stuti & Rushil — design tokens
+  Kashmiri restraint as the ground, Punjabi vibrance as the accent.
+  ~60% cream · 20% red · 12% saffron/marigold · 8% gold.
+*/
+@theme {
+  --color-cream: #fbf4e6;
+  --color-cream-deep: #f3e7cf;
+  --color-red: #a01d28;
+  --color-red-deep: #7d141d;
+  --color-saffron: #e8842b;
+  --color-saffron-deep: #9a5413; /* AA-contrast saffron for text on cream */
+  --color-marigold: #f2a900;
+  --color-gold: #c9a227;
+  --color-gold-soft: #e2c878;
+  --color-gold-deep: #836310; /* accessible gold for small text on cream */
+  --color-ink: #2b1a12;
+  --color-ink-soft: #5b4636;
+  --color-pine: #1f5c4d;
+  --color-rose: #c76b7e;
+
+  --font-display: var(--font-display), "Cormorant Garamond", serif;
+  --font-body: var(--font-body), system-ui, sans-serif;
+  --font-script: var(--font-script), serif;
+
+  --shadow-card: 0 30px 60px -28px rgba(43, 26, 18, 0.45);
+}
+
+:root {
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1.0625rem; /* 17px base for comfortable reading */
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: 0.01em;
+}
+
+/* Accessible keyboard focus everywhere. */
+:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Consistent, tighter vertical rhythm for sections. */
+.section-pad {
+  padding-top: clamp(3.5rem, 9vw, 6rem);
+  padding-bottom: clamp(3.5rem, 9vw, 6rem);
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
+
+/* Gold-foil text fill — champagne→amber→gold gradient clipped to glyphs. */
+.gold-foil {
+  background: linear-gradient(
+    100deg,
+    #6e520c 0%,
+    #a9810f 26%,
+    #e7c873 50%,
+    #a9810f 74%,
+    #6e520c 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  /* faint ink edge so the gold reads on cream and over video */
+  filter: drop-shadow(0 1px 1px rgba(43, 26, 18, 0.28));
+  animation: foil-shimmer 7s linear infinite;
+}
+
+/* Ornate illustrated card frame (border-image). Center is transparent so content
+   scrolls inside the frame; the painted ring stays fixed around the viewport. */
+.ornate-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 22px;
+  border-image-source: url("/border-mobile.webp");
+  border-image-slice: 92;
+  border-image-repeat: round; /* tile the floral edge uniformly — no stretch/compress */
+}
+@media (min-width: 768px) {
+  .ornate-frame {
+    border-width: 44px;
+    border-image-source: url("/border-desktop.webp");
+    border-image-slice: 78;
+    border-image-repeat: round;
+  }
+}
+
+/* Border motion graphics: a gentle shimmer on the painted frame, and a gold light
+   that travels around the inner edge of the card. */
+.ornate-frame {
+  animation: frame-breathe 9s ease-in-out infinite;
+}
+@keyframes frame-breathe {
+  0%,
+  100% {
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    filter: brightness(1.07) saturate(1.08);
+  }
+}
+
+@property --frame-ang {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.frame-glow {
+  position: fixed;
+  inset: 22px;
+  z-index: 41;
+  border-radius: 14px;
+  padding: 2px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--frame-ang),
+    rgba(255, 244, 200, 0) 0deg,
+    rgba(255, 244, 200, 0) 240deg,
+    rgba(255, 244, 200, 0.85) 300deg,
+    rgba(201, 162, 39, 0.25) 332deg,
+    rgba(255, 244, 200, 0) 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: frame-spin 7s linear infinite;
+}
+@media (min-width: 768px) {
+  .frame-glow {
+    inset: 50px;
+    border-radius: 12px;
+  }
+}
+@keyframes frame-spin {
+  to {
+    --frame-ang: 360deg;
+  }
+}
+
+/* Custom cursor: hide the native pointer only on fine-pointer devices. */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-none,
+  .cursor-none * {
+    cursor: none !important;
+  }
+  /* keep a real, visible pointer on anything interactive so it's easy to click/type */
+  .cursor-none a,
+  .cursor-none button,
+  .cursor-none select,
+  .cursor-none label,
+  .cursor-none [role="button"] {
+    cursor: pointer !important;
+  }
+  .cursor-none input,
+  .cursor-none textarea {
+    cursor: text !important;
+  }
+}
+.cursor-ring[data-hover="1"] {
+  width: 3.25rem;
+  height: 3.25rem;
+  background-color: rgba(201, 162, 39, 0.14);
+}
+
+/* Hero couple names: solid, high-contrast, with a faint regal gold edge. */
+.hero-name {
+  text-shadow: 0 1px 0 rgba(201, 162, 39, 0.35), 0 2px 14px rgba(125, 20, 29, 0.12);
+}
+
+/* Soft cream ground that keeps text legible when it sits over a video. */
+.media-legible {
+  position: relative;
+}
+.media-legible::before {
+  content: "";
+  position: absolute;
+  inset: -8% -6%;
+  z-index: -1;
+  background: radial-gradient(
+    60% 55% at 50% 50%,
+    rgba(251, 244, 230, 0.92) 0%,
+    rgba(251, 244, 230, 0.7) 45%,
+    rgba(251, 244, 230, 0) 100%
+  );
+}
+
+@keyframes foil-shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Reveal primitives — start state lives in CSS so SSR HTML is the LCP paint. */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+/* Gentle continuous float for feature imagery. */
+.float-soft {
+  animation: float-soft 7s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Thin gold rule used as a section divider. */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold) 20%,
+    var(--color-gold) 80%,
+    transparent
+  );
+}
+
+/* No-motion-first: honor Reduce Motion everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-init {
+    opacity: 1;
+    transform: none;
+  }
+  .gold-foil {
+    animation: none;
+  }
+}
+
+::selection {
+  background: var(--color-saffron);
+  color: var(--color-cream);
+}
+
+/* Faint paper grain so the cream reads like invitation card stock. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  opacity: 0.05;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    opacity: 0.04;
+  }
+}
