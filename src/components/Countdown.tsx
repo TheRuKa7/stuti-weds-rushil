@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { rsvp, hosts } from "@/lib/content";
+import { closing, wedding } from "@/lib/content";
 import Reveal from "./Reveal";
 import { MotifDivider } from "./motifs";
 
@@ -42,9 +42,7 @@ export default function Countdown() {
     <section className="relative px-6 pb-12 pt-2">
       <div className="mx-auto max-w-3xl text-center">
         <Reveal>
-          <p className="text-xs uppercase tracking-[0.3em] text-saffron-deep">
-            Counting down to the celebration
-          </p>
+          <p className="text-xs uppercase tracking-[0.3em] text-saffron-deep">{closing.kicker}</p>
         </Reveal>
 
         <Reveal delay={100}>
@@ -68,10 +66,9 @@ export default function Countdown() {
         <Reveal delay={180}>
           <div className="mt-8 flex flex-col items-center gap-2">
             <span className="rounded-full border border-gold/60 px-5 py-2 text-[11px] uppercase tracking-[0.3em] text-red">
-              {rsvp.tag}
+              {wedding.hashtag}
             </span>
-            <p className="max-w-sm text-sm leading-relaxed text-ink-soft">{rsvp.note}</p>
-            <p className="text-xs italic text-ink-soft">{hosts.formalNote}</p>
+            <p className="max-w-sm text-sm leading-relaxed text-ink-soft">{closing.note}</p>
           </div>
           <MotifDivider className="mt-8" />
         </Reveal>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { couple, wedding, hosts, rsvp } from "@/lib/content";
+import { couple, wedding, invite } from "@/lib/content";
 import { markGateOpen } from "@/lib/gate";
 import { media } from "@/lib/media";
 import { HexagonMonogram } from "./motifs";
@@ -92,15 +92,15 @@ export default function InvitationGate() {
               // eslint-disable-next-line @next/next/no-img-element
               <img src={media.ganesha} alt="" className="h-11 w-auto opacity-90" aria-hidden />
             ) : null}
-            <p className="mt-2 font-script text-xl text-red">शुभ विवाह</p>
+            <p className="mt-2 font-script text-xl text-red">{invite.invocation}</p>
             <span className="mt-3 rounded-full border border-gold/60 px-4 py-1.5 text-[10px] uppercase tracking-[0.3em] text-saffron-deep">
-              {hosts.saveTheDate}
+              The Wedding Invitation
             </span>
 
             <div className="mt-5 flex flex-col items-center">
-              <span className="font-display text-xl text-ink sm:text-2xl">{hosts.brideParents}</span>
+              <span className="font-display text-xl text-ink sm:text-2xl">{invite.brideParents}</span>
               <span className="mt-2 max-w-[16rem] text-[10px] uppercase leading-relaxed tracking-[0.24em] text-ink-soft">
-                {hosts.gateLine}
+                {invite.gateLine}
               </span>
               <h1 className="mt-3 flex flex-col items-center leading-[1.02]">
                 <span className="font-display text-4xl text-red-deep sm:text-5xl">
@@ -111,15 +111,15 @@ export default function InvitationGate() {
                   {couple.groom.first} {couple.groom.last}
                 </span>
               </h1>
-              <span className="mt-2 text-[11px] text-ink-soft">{hosts.groomLine}</span>
+              <span className="mt-2 text-[11px] text-ink-soft">{invite.groomLine}</span>
               <span className="mt-3 text-sm tracking-[0.18em] text-ink">{wedding.dates}</span>
               <span className="mt-1 text-[11px] uppercase tracking-[0.2em] text-ink-soft">
                 {wedding.venue}
               </span>
               <span className="mt-4 rounded-full border border-gold/60 px-4 py-1.5 text-[10px] uppercase tracking-[0.28em] text-red">
-                {rsvp.tag}
+                {wedding.hashtag}
               </span>
-              <span className="mt-2 text-[10px] italic text-ink-soft">{hosts.formalNote}</span>
+              <span className="mt-2 text-[10px] italic text-ink-soft">{invite.formalNote}</span>
             </div>
           </div>
 

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
-import { couple, wedding, saveTheDate, hosts } from "@/lib/content";
+import { couple, wedding, invite } from "@/lib/content";
 import { onGateOpen } from "@/lib/gate";
 import { media } from "@/lib/media";
 import AmbientVideo from "./AmbientVideo";
@@ -21,7 +21,7 @@ export default function Hero() {
         tl.fromTo(
           "[data-fade]",
           { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, duration: 0.9, stagger: 0.09, immediateRender: false, clearProps: "opacity,transform" },
+          { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, immediateRender: false, clearProps: "opacity,transform" },
         ).fromTo(
           "[data-name]",
           { opacity: 0, y: 36, scale: 0.97 },
@@ -39,7 +39,7 @@ export default function Hero() {
   return (
     <section
       ref={root}
-      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 py-14 text-center"
+      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 py-16 text-center"
     >
       {media.heroVideo && (
         <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden" aria-hidden>
@@ -68,19 +68,18 @@ export default function Hero() {
         ) : (
           <OmMark className="text-3xl text-saffron-deep" />
         )}
-        <p className="font-script text-2xl text-red">{saveTheDate.invocation}</p>
+        <p className="font-script text-2xl text-red">{invite.invocation}</p>
       </div>
 
       <span
         data-fade
         className="mt-4 rounded-full border border-gold/60 px-5 py-1.5 text-[11px] uppercase tracking-[0.34em] text-saffron-deep"
       >
-        {hosts.saveTheDate}
+        The Wedding Invitation
       </span>
 
-      {/* one photo, compact, framed */}
       <div data-fade className="mt-5 w-32 sm:w-36">
-        <div className="overflow-hidden rounded-t-[100px] rounded-b-2xl border border-gold/50 p-1.5 shadow-card">
+        <div className="float-soft overflow-hidden rounded-t-[100px] rounded-b-2xl border border-gold/50 p-1.5 shadow-card">
           <Image
             src="/ghibli-1.webp"
             alt={`${couple.bride.first} with ${couple.groom.first}`}
@@ -92,14 +91,17 @@ export default function Hero() {
         </div>
       </div>
 
-      <p data-fade className="mt-5 font-display text-2xl text-ink sm:text-3xl">
-        {hosts.brideParents}
+      <p data-fade className="mt-5 text-[11px] uppercase tracking-[0.26em] text-ink-soft">
+        {invite.kicker}
+      </p>
+      <p data-fade className="mt-1 font-display text-2xl text-ink sm:text-3xl">
+        {invite.brideParents}
       </p>
       <p
         data-fade
         className="mt-2 max-w-sm text-[11px] uppercase leading-relaxed tracking-[0.2em] text-ink-soft sm:text-xs"
       >
-        {hosts.inviteLine}
+        {invite.inviteLine}
       </p>
 
       <h1 className="mt-3 flex flex-col items-center leading-[0.95]">
@@ -115,13 +117,13 @@ export default function Hero() {
       </h1>
 
       <p data-fade className="mt-2 text-sm text-ink-soft">
-        {hosts.groomLine}
+        {invite.groomLine}
       </p>
       <p
         data-fade
         className="mt-2 max-w-sm text-[11px] uppercase leading-relaxed tracking-[0.2em] text-ink-soft sm:text-xs"
       >
-        {hosts.joinLine}
+        {invite.joinLine}
       </p>
 
       <div data-fade className="mt-4">
@@ -137,6 +139,20 @@ export default function Hero() {
       <p data-fade className="mt-1 text-xs uppercase tracking-[0.22em] text-ink-soft">
         {wedding.venueCity}
       </p>
+
+      <a
+        data-fade
+        href="#story"
+        aria-label="Scroll to explore"
+        className="group mt-9 inline-flex flex-col items-center gap-2 text-saffron-deep"
+      >
+        <span className="text-[10px] uppercase tracking-[0.3em]">Explore</span>
+        <span className="grid h-9 w-9 place-items-center rounded-full border border-gold/60 transition-transform duration-500 group-hover:translate-y-1">
+          <svg viewBox="0 0 24 24" className="h-4 w-4 animate-bounce" fill="none" aria-hidden>
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </a>
     </section>
   );
 }

@@ -23,13 +23,14 @@ const script = Tiro_Devanagari_Hindi({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://stuti-weds-rushil.example.com"),
-  title: "Stuti with Rushil · 27–28 February 2027",
+  metadataBase: new URL("https://stuti-weds-rushil.vercel.app"),
+  title: "Stuti weds Rushil · 27–28 February 2027",
   description:
-    "With joyful hearts, save the dates for the wedding of Stuti Suri and Rushil Kaul, 27 to 28 February 2027. Two valleys, one vow. Kindly RSVP.",
+    "You're invited to the wedding of Stuti Suri and Rushil Kaul, 27 & 28 February 2027 at Jim Corbett. Two valleys, one vow — Punjab meets Kashmir across two days of celebration.",
   openGraph: {
-    title: "Stuti with Rushil · 27–28 February 2027",
-    description: "Two valleys, one vow. Punjab meets Kashmir. Save the dates and RSVP.",
+    title: "Stuti weds Rushil · 27–28 February 2027",
+    description:
+      "Two valleys, one vow. Punjab meets Kashmir. Join us for two days of celebration at Jim Corbett.",
     type: "website",
   },
 };
